@@ -7,8 +7,6 @@ public class IdenticalTreesDemo {
         TreeNode root2 = TreeNode.getBT1();
 
         System.out.println(isIdentical(root1, root2));
-
-
     }
 
     private static boolean isIdentical(TreeNode r, TreeNode s) {

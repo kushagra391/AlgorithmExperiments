@@ -7,13 +7,11 @@ public class IsHeightBalancedDemo {
         TreeNode root = TreeNode.getBST1();
         TreeNode root2 = TreeNode.getBadTree();
 
-
         System.out.println(HeightBalanced(root, new NodeHeight()));
         System.out.println(HeightBalanced(root2, new NodeHeight()));
 
         System.out.println(isHeightBalanced(root));
         System.out.println(isHeightBalanced(root2));
-
     }
 
     static class NodeHeight {
