@@ -17,7 +17,7 @@ public class SubsetSumDemo {
      * i. isSubsetSum (set, n-1, S - x)
      * ii. isSubsetSum(set, n-1, S)
     */
-    private static boolean SubsetSum(int[] set, int n, int sum) {
+    public static boolean SubsetSum(int[] set, int n, int sum) {
 
         if (sum == 0) return true;
         if (n == 0) return false;
