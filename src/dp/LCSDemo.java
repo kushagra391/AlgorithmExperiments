@@ -3,10 +3,6 @@ package dp;/* Authored by Kushagra on 12/19/2015. */
 public class LCSDemo {
     public static void main(String[] args) {
 
-        
-
-
-
         String S = "ABCDGH";
         String T = "AEDFHR";
         int m = S.length();

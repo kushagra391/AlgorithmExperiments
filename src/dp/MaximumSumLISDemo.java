@@ -11,28 +11,23 @@ public class MaximumSumLISDemo {
 
     private static int maximumIncreasingSum(int[] A, int n) {
 
-        int[] lis = new int[n];
-
-        for (int i = 0; i < A.length; i++)
-            lis[i] = A[i];
+        int[] sumLIS = new int[n];
+        System.arraycopy(A, 0, sumLIS, 0, A.length);
 
         int sum_j;
         for (int i = 1; i < n; i++) {
-
-            sum_j = 0;
             for (int j = 0; j < i; j++) {
-
                 if (A[i] > A[j]) {
-                    
+                    // when do you update the sum
+                    if (sumLIS[i] > sumLIS[j] + A[i])
+                        sumLIS[i] = sumLIS[j] + A[i];
                 }
-
             }
         }
 
-
         int maxSum = Integer.MAX_VALUE;
         for (int i=0; i<n; i++) {
-            maxSum = Math.max(maxSum, lis[i]);
+            maxSum = Math.max(maxSum, sumLIS[i]);
         }
 
         return maxSum;
