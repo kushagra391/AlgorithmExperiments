@@ -20,15 +20,7 @@ public class NQueensProblemDemo {
         }
     }
 
-    private static void printBoard(int n, boolean[][] board) {
-        for (int i=0; i<n; i++){
-            for (int j=0; j<n; j++){
-                System.out.print(board[i][j] + " ");
-            }
-           System.out.println();
-        }
-    }
-
+    // main method to solve the problem
     private static boolean solveNQUtil(boolean[][] board, int col) {
         int n = board.length;
 
@@ -73,4 +65,12 @@ public class NQueensProblemDemo {
         return true;
     }
 
+    private static void printBoard(int n, boolean[][] board) {
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++){
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 }

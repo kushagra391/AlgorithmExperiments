@@ -32,7 +32,7 @@ public class KnapSackDemo {
             for (int w = 0; w < W; w++) {
 
                 if (i == 0 || w == 0) K[i][w] = 0; // Base case
-                if (weights[i - 1] > w)
+                if (weights[w - 1] > w)
                     K[i][w] = K[i - 1][w];
                 else
                     K[i][w] = Math.max(K[i - 1][w], values[i - 1] + K[i - 1][w - weights[i - 1]]);
