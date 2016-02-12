@@ -9,6 +9,7 @@ public class RatInAMazeDemo {
         solveMaze(maze);
     }
 
+    // Test data
     private static boolean[][] TestMaze() {
         return new boolean[0][];
     }
