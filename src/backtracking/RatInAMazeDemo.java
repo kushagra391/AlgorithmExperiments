@@ -61,6 +61,7 @@ public class RatInAMazeDemo {
     }
 
     private static boolean isSafe(boolean[][] maze, int row, int col) {
+        return false;
     }
 
     private static void print2DArray(int n, boolean[][] board) {
