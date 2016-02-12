@@ -6,14 +6,12 @@ public class FindAllPairAnagrams {
 
     public static void main(String[] args) {
 
-        String[] list = {};
+        String[] list = {"hello", "olleh", "abc", "cab", "can"};
         printAllPairs(list);
     }
 
     private static void printAllPairs(String[] strings) {
-
         int n = strings.length;
-
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
                 String s1 = strings[i];
@@ -37,7 +35,6 @@ public class FindAllPairAnagrams {
             }
         }
 
-
         for (char x : s2.toCharArray()) {
             if (countMap.containsKey(x)) {
                 int count = countMap.get(x);
@@ -45,7 +42,6 @@ public class FindAllPairAnagrams {
             } else {
                 return false;
             }
-
         }
 
         for (int count : countMap.values()) {
