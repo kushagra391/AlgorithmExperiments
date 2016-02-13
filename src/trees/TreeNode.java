@@ -5,8 +5,8 @@ import sun.reflect.generics.tree.Tree;
 public class TreeNode {
 
     int key;
-    TreeNode left;
-    TreeNode right;
+    public TreeNode left;
+    public TreeNode right;
 
     public TreeNode(int key) {
         this.key = key;
