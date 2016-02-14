@@ -2,18 +2,19 @@ package hackathon14;/* Authored by Kushagra on 2/14/2016. */
 
 import java.util.*;
 
-public class MergeOverlappingIntervalsDemo {
+public class xMergeOverlappingIntervalsDemo {
 
     public static void main(String[] args) {
 
         Interval i1 = new Interval(1, 4);
-        Interval i2 = new Interval(1, 4);
-        Interval i3 = new Interval(1, 4);
-        Interval i4 = new Interval(1, 4);
-        Interval i5 = new Interval(1, 4);
+        Interval i2 = new Interval(2, 5);
+        Interval i3 = new Interval(6, 8);
+        Interval i4 = new Interval(9, 11);
+        Interval i5 = new Interval(10, 12);
 
         Interval[] intervals = {i1, i2, i3, i4, i5};
         List<Interval> mergedIntervals = mergeIntervals(intervals);
+        System.out.println(mergedIntervals.toString());
     }
 
     private static List<Interval> mergeIntervals(Interval[] intervals) {
@@ -28,14 +29,17 @@ public class MergeOverlappingIntervalsDemo {
 
             if (canBeMerged(prev, curr)) {
                 prev = new Interval(prev.start, curr.end);
-            } else {
                 result.add(prev);
+            } else {
+                result.add(curr);
             }
 
             prev = curr;
         }
 
         result.add(prev);
+
+        return result;
     }
 
     private static boolean canBeMerged(Interval prev, Interval curr) {
