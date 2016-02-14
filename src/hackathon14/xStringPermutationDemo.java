@@ -11,8 +11,6 @@ public class xStringPermutationDemo {
 
         char[] s = S.toCharArray();
         _permute(s, 0, s.length - 1);
-
-
     }
 
     // array based permutation
@@ -49,8 +47,8 @@ public class xStringPermutationDemo {
         }
     }
 
+    // string based character swap
     private static String swap(String s, int index1, int index2) {
-
         char[] S = s.toCharArray();
 
         char temp = S[index2];
