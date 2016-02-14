@@ -3,7 +3,7 @@ package hackathon14;/* Authored by Kushagra on 2/14/2016. */
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubarrayWithGivenSumDemo {
+public class _SubarrayWithGivenSumDemo {
     public static void main(String[] args) {
         int[] A = {5, 4, 13, 11, 2, 9};
         int S = 28;
@@ -17,28 +17,25 @@ public class SubarrayWithGivenSumDemo {
         List<Integer> result = new ArrayList<>();
 
         int n = A.length;
-
-        int left = 0;
-        int right = 0;
-
+        int start = 0;
         int currentSum = 0;
-        while (currentSum <= S) {
-            currentSum =+ A[right];
-            right ++;
-        }
 
-        while (right < n) {
+        for (int i = 0; i < n; i++) {
 
             if (currentSum < S) {
-
+                currentSum = currentSum + A[i];
+                continue;
             }
 
+            if (currentSum == S) {
+                System.out.println("Indices: " + start + ", " + i);
+            }
 
-
+            if (currentSum > S) {
+                currentSum -= A[start];
+                start++;
+            }
         }
-
-
-
 
         return result;
     }
