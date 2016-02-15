@@ -33,7 +33,8 @@ public class MedianOfSortedArraysDemo {
             return (Math.max(A[0], B[0]) + Math.min(A[1], B[1])) / 2;
 
         // Recurrence
-        
+        return 0;
+
 
 
 
