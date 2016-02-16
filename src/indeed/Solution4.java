@@ -10,135 +10,132 @@ public class Solution4 {
         // read input from STDIN
         Scanner in = new Scanner(System.in);
         int n = Integer.parseInt(in.nextLine());
-        Deque deque = new Deque();
+        SuperStack S = new SuperStack();
 
-        int i =0;
-        while (i<n) {
+        for (int i =0; i<n; i++) {
             String command = in.nextLine();
             String[] tokens = command.split(" ");
 
             int tokenCount = tokens.length;
-            if (tokenCount == 1) {
-                deque.removeFront();
+            switch (tokenCount) {
 
+                case 1:
+                    S.pop();
 
-            } else if (tokenCount == 2) {
-                int a = Integer.parseInt(tokens[1]);
-                deque.insertFront(a);
+                    break;
+                case 2:
+                    int a = Integer.parseInt(tokens[1]);
+                    S.push(a);
 
+                    break;
+                case 3:
+                    int x = Integer.parseInt(tokens[1]);
+                    int d = Integer.parseInt(tokens[2]);
+                    S.inc(x, d);
 
-            } else if (tokenCount == 3) {
-                int x = Integer.parseInt(tokens[1]);
-                int d = Integer.parseInt(tokens[2]);
-                deque.increment(x, d);
-
-            } else {
+                    break;
+                default:
+                    break;
             }
 
-            i++;
         }
 
-        deque.printOutput();
+        S.printResult();
 }
 
 
-    private static class Deque {
+    private static class SuperStack {
 
-        DequeElement start;
-        DequeElement end;
-        int count;
-        StringBuilder output;
+        Node head;
+        Node tail;
+        int size;
+        StringBuilder result;
 
-        Deque() {
-            count = 0;
-            start = new DequeElement(0);
-            end = new DequeElement(0);
-            output = new StringBuilder();
+        SuperStack() {
+            size = 0;
+            head = new Node(0);
+            tail = new Node(0);
+            result = new StringBuilder();
         }
 
-        void insertFront(int a) {
-            DequeElement dequeElement = new DequeElement(a);
+        void push(int a) {
+            Node node = new Node(a);
 
-            if (start.nextElement != null) {
-                DequeElement firstDequeElement = start.nextElement;
-
-                dequeElement.nextElement = firstDequeElement;
-                firstDequeElement.previousElement = dequeElement;
-                dequeElement.previousElement = null;
-
-                start.nextElement = dequeElement;
+            if (head.next == null) {
+                head.next = node;
+                tail.prev = node;
             } else {
-                start.nextElement = dequeElement;
-                end.previousElement = dequeElement;
+                Node firstNode = head.next;
+
+                node.next = firstNode;
+                firstNode.prev = node;
+                node.prev = null;
+
+                head.next = node;
             }
 
-            this.count++;
+            this.size++;
             printHead();
         }
 
         private void printHead() {
-            if (count != 0) {
-                output.append(start.nextElement.data);
-                output.append("\n");
-            } else {
-                output.append("EMPTY\n");
+            if (size == 0) {
+                result.append("EMPTY\n");
+            }
+            else {
+                result.append(head.next.key);
+                result.append("\n");
             }
 
         }
 
         private void printList() {
 
-            DequeElement dequeElement = start.nextElement;
+            Node node = head.next;
 
-            if (dequeElement != null) {
-                do {
-                    System.out.print(dequeElement.data + " ");
-                    dequeElement = dequeElement.nextElement;
-                } while (dequeElement != null);
+            while (node != null) {
+                System.out.print(node.key + " ");
+                node = node.next;
             }
 
             System.out.println();
         }
 
-        void removeFront() {
-            if (start.nextElement != null) {
-            } else {
-                output.append("EMPTY\n");
+        void pop() {
+            if (head.next == null) {
+                result.append("EMPTY\n");
             }
 
-            switch (count) {
-                case 1:
-                    output.append("EMPTY\n");
+            if (size == 1) {
+                result.append("EMPTY\n");
 
-                    start.nextElement = null;
-                    end.previousElement = null;
-                    count = 0;
-                    break;
-                default:
-                    start.nextElement = start.nextElement.nextElement;
-                    int topElement = start.nextElement.data;
-                    count = count - 1;
+                head.next = null;
+                tail.prev = null;
+                size = 0;
+            }
+            else {
+                head.next = head.next.next;
+                int topElement = head.next.key;
+                size = size - 1;
 
-                    //noinspection SuspiciousNameCombination
-                    output.append(topElement);
-                    output.append("\n");
-                    break;
+                //noinspection SuspiciousNameCombination
+                result.append(topElement);
+                result.append("\n");
             }
 
 
         }
 
         // Add values d to the bottom x elements
-        void increment(int x, int d) {
+        void inc(int x, int d) {
 
-            DequeElement dequeElement = end.previousElement;
-            x = Math.min(x, count);
+            Node node = tail.prev;
+            x = Math.min(x, size);
 
             int i = 0;
-            while (true) {
-                if (!(i < x)) break;
-                dequeElement.data = dequeElement.data + d;
-                dequeElement = dequeElement.previousElement;
+            while (i < x) {
+                node.key = node.key + d;
+                node = node.prev;
                 i++;
             }
 
@@ -146,20 +143,20 @@ public class Solution4 {
 
         }
 
-        public void printOutput() {
-            System.out.println(output);
+        public void printResult() {
+            System.out.println(result);
         }
     }
 
-    private static class DequeElement {
-        DequeElement previousElement;
-        DequeElement nextElement;
-        int data;
+    private static class Node {
+        Node prev;
+        Node next;
+        int key;
 
-        DequeElement(int key) {
-            data = key;
-            previousElement = null;
-            nextElement = null;
+        Node(int _key) {
+            key = _key;
+            prev = null;
+            next = null;
         }
     }
 

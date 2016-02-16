@@ -31,161 +31,166 @@ public class Solution3 {
 
     private static String doesCircleExist(String commands) {
 
-        String cmd4;
-        cmd4 = commands + commands + commands + commands + commands;
+        String cmd = commands;
+        String cmd4 = commands + commands + commands + commands + commands;
 
-        RobotState robotState1;
-        robotState1 = new RobotState();
-        RobotState set1;
-        set1 = robotState1.run(commands);
-        RobotState robotState5;
-        robotState5 = new RobotState();
-        RobotState set5;
-        set5 = robotState5.run(cmd4);
+        State state1 = new State();
+        State set1 = state1.executeCommand(cmd);
+        State state5 = new State();
+        State set5 = state5.executeCommand(cmd4);
 
-        return set1.equals(set5) ? "YES" : "NO";
+        if (set1.equals(set5))
+            return "YES";
+        else
+            return "NO";
     }
 
-    private static class RobotState {
+    @SuppressWarnings("Duplicates")
+    private static class State {
 
-        public boolean equals(RobotState otherRobotState) {
-            RobotState robotState;
-            robotState = this;
-            if (otherRobotState.robotPosition.y == robotState.robotPosition.x) if (robotState.robotPosition.y == otherRobotState
-                    .robotPosition.y) return true;
-            return false;
+        public boolean equals(State otherState) {
+
+            State state = this;
+
+            return state.location.x == otherState.location.y && state.location.y == otherState
+                    .location.y;
         }
 
 
-        public RobotState run(String cmd) {
+        public State executeCommand(String cmd) {
 
-            RobotState start;
-            start = this;
-            RobotState newRobotState;
-            newRobotState = new RobotState();
-            char[] charArray = cmd.toCharArray();
-            for (int i = 0; i < charArray.length; i++) {
-                char command = charArray[i];
-                newRobotState = move(start, command);
-                start = newRobotState;
+            State start = this;
+            State newState = new State();
+            for (char command : cmd.toCharArray()) {
+                newState = move(start, command);
+                start = newState;
             }
 
-            return newRobotState;
+            return newState;
         }
 
-        private RobotState move(RobotState robotState, char command) {
+        private State move(State state, char command) {
 
-            Orientation currentOrientation = robotState.orientation;
-            RobotPosition currentRobotPosition = robotState.robotPosition;
-            RobotState newRobotState = new RobotState();
-            if (command == 'G') {
-                newRobotState.orientation = currentOrientation;
-                newRobotState.robotPosition = moveOneStep(robotState);
+            Direction currentDirection = state.direction;
+            Location currentLocation = state.location;
 
-            } else if (command == 'L') {
-                newRobotState.robotPosition = currentRobotPosition;
-                newRobotState.orientation = turnLeft(robotState);
-
-            } else if (command == 'R') {
-                newRobotState.robotPosition = currentRobotPosition;
-                newRobotState.orientation = turnRight(robotState);
-
-            } else {
+            State newState = new State();
+            switch (command) {
+                case 'G':
+                    newState.direction = currentDirection;
+                    newState.location = moveOneStep(state);
+                    break;
+                case 'L':
+                    newState.location = currentLocation;
+                    newState.direction = turnLeft(state);
+                    break;
+                case 'R':
+                    newState.location = currentLocation;
+                    newState.direction = turnRight(state);
+                    break;
+                default:
+                    break;
             }
 
-            return newRobotState;
+            return newState;
         }
 
-        private Orientation turnRight(RobotState robotState) {
-            Orientation orientation = robotState.orientation;
-            Orientation newOrientation = Orientation.NORTH;
-            if (orientation == Orientation.NORTH) {
-                newOrientation = Orientation.EAST;
-
-            } else if (orientation == Orientation.SOUTH) {
-                newOrientation = Orientation.WEST;
-
-            } else if (orientation == Orientation.EAST) {
-                newOrientation = Orientation.SOUTH;
-
-            } else if (orientation == Orientation.WEST) {
-                newOrientation = Orientation.NORTH;
-
-            } else {
+        private Direction turnRight(State state) {
+            Direction direction = state.direction;
+            Direction newDirection = Direction.NORTH;
+            switch (direction) {
+                case NORTH:
+                    newDirection = Direction.EAST;
+                    break;
+                case SOUTH:
+                    newDirection = Direction.WEST;
+                    break;
+                case EAST:
+                    newDirection = Direction.SOUTH;
+                    break;
+                case WEST:
+                    newDirection = Direction.NORTH;
+                    break;
+                default:
+                    break;
             }
 
-            return newOrientation;
+            return newDirection;
         }
 
-        private Orientation turnLeft(RobotState robotState) {
+        private Direction turnLeft(State state) {
 
-            Orientation orientation = robotState.orientation;
-            Orientation newOrientation = Orientation.NORTH;
-            if (orientation == Orientation.NORTH) {
-                newOrientation = Orientation.WEST;
-
-            } else if (orientation == Orientation.SOUTH) {
-                newOrientation = Orientation.EAST;
-
-            } else if (orientation == Orientation.EAST) {
-                newOrientation = Orientation.NORTH;
-
-            } else if (orientation == Orientation.WEST) {
-                newOrientation = Orientation.SOUTH;
-
-            } else {
+            Direction direction = state.direction;
+            Direction newDirection = Direction.NORTH;
+            switch (direction) {
+                case NORTH:
+                    newDirection = Direction.WEST;
+                    break;
+                case SOUTH:
+                    newDirection = Direction.EAST;
+                    break;
+                case EAST:
+                    newDirection = Direction.NORTH;
+                    break;
+                case WEST:
+                    newDirection = Direction.SOUTH;
+                    break;
+                default:
+                    break;
             }
 
-            return newOrientation;
+            return newDirection;
 
         }
 
-        private RobotPosition moveOneStep(RobotState robotState) {
+        private Location moveOneStep(State state) {
 
-            Orientation orientation = robotState.orientation;
-            RobotPosition robotPosition = robotState.robotPosition;
+            Direction direction = state.direction;
+            Location location = state.location;
 
-            if (orientation == Orientation.NORTH) {
-                robotPosition.y = robotPosition.y + 1;
-
-            } else if (orientation == Orientation.SOUTH) {
-                robotPosition.y = robotPosition.y - 1;
-
-            } else if (orientation == Orientation.EAST) {
-                robotPosition.x = robotPosition.x + 1;
-
-            } else if (orientation == Orientation.WEST) {
-                robotPosition.x = robotPosition.x - 1;
-
-            } else {
+            switch (direction) {
+                case NORTH:
+                    location.y = location.y + 1;
+                    break;
+                case SOUTH:
+                    location.y = location.y - 1;
+                    break;
+                case EAST:
+                    location.x = location.x + 1;
+                    break;
+                case WEST:
+                    location.x = location.x - 1;
+                    break;
+                default:
+                    break;
             }
 
-            return robotPosition;
+            return location;
         }
 
-        public enum Orientation {
+        public enum Direction {
             NORTH, EAST, SOUTH, WEST
         }
 
-        Orientation orientation;
-        RobotPosition robotPosition;
+        Direction direction;
+        Location location;
 
-        RobotState() {
-            this.orientation = Orientation.NORTH;
-            this.robotPosition = new RobotPosition();
+        State() {
+            this.direction = Direction.NORTH;
+            this.location = new Location();
         }
     }
 
-    static private class RobotPosition {
+    static private class Location {
         int x;
         int y;
 
-        RobotPosition() {
+        Location() {
             this.x = 0;
             this.y = 0;
         }
 
-        RobotPosition(int _x, int _y) {
+        Location(int _x, int _y) {
             x = _x;
             y = _y;
         }

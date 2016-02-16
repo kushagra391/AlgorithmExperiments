@@ -28,13 +28,10 @@ public class Solution1 {
 
         if (root == null) return 0;
 
-        int data = root.data;
-        if (data == val) {
-            return 1;
-        }
+        int key = root.data;
+        if (key == val) return 1;
 
-        return isPresent(root.left, val) +
-                isPresent(root.right, val);
+        return isPresent(root.left, val) + isPresent(root.right, val);
     }
 
     private static class Node {

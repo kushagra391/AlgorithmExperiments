@@ -30,41 +30,47 @@ public class Solution2 {
             int A = Integer.parseInt(ranges[0]);
             int B = Integer.parseInt(ranges[1]);
 
-            System.out.println(countSquaresHelper(A, B));
+            System.out.println(countSquaresUtil(A, B));
         }
     }
 
-    private static int countSquaresHelper(int A, int B) {
+    private static int countSquaresUtil(int A, int B) {
 
         int a = (int) Math.sqrt((double) A);
         int b = (int) Math.sqrt((double) B);
 
-        int nextPerfectSquareA = nextPerfectSquare(A);
-        int nextPerfectSquareB = previousPerfectSquare(B);
+        int a1 = findNextPerfectSquare(A);
+        int b1 = findPreviousPerfectSquare(B);
 
-        int sqrtRootOfNextA = (int) Math.sqrt(nextPerfectSquareA);
-        int sqrtRootOfNextB = (int) Math.sqrt(nextPerfectSquareB);
+        int a11 = (int) Math.sqrt(a1);
+        int b11 = (int) Math.sqrt(b1);
 
-        if (sqrtRootOfNextA > sqrtRootOfNextB) {
+        if (a11 > b11) {
             return 0;
         }
         else
-        return (sqrtRootOfNextB - sqrtRootOfNextA) + 1;
+        return (b11 - a11) + 1;
+
+
+
+
+
+
     }
 
-    private static int nextPerfectSquare(int number) {
+    private static int findNextPerfectSquare(int a) {
 
-        int sqrt = (int) Math.sqrt(number);
-        if (isPerfectSquare(number)) {
-            return number;
+        int sqrt = (int) Math.sqrt(a);
+        if (isPerfectSquare(a)) {
+            return a;
         } else {
             return (int) Math.pow(sqrt + 1, 2);
         }
     }
 
-    private static int previousPerfectSquare(int number) {
+    private static int findPreviousPerfectSquare(int a) {
 
-        int sqrt = (int) Math.sqrt(number);
+        int sqrt = (int) Math.sqrt(a);
 
         return sqrt * sqrt;
 
