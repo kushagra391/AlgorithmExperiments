@@ -1,1 +1,1 @@
-List of online submissions, packaged in /src
+List of online submissions, packaged in /src directory
