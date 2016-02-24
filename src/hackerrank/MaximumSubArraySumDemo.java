@@ -1,5 +1,10 @@
 package hackerrank;/* Authored by Kushagra on 2/24/2016. */
 
+/*
+ * Refer: 
+ * http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
+ */
+
 import java.util.Scanner;
 
 public class MaximumSubArraySumDemo {
@@ -61,10 +66,31 @@ public class MaximumSubArraySumDemo {
                 currentSum = A[i];
             } else {
                 maxSumSoFar = Math.max(maxSumSoFar, currentSum);
+                maxSumSoFar = Math.max(maxSumSoFar, A[i]);
             }
         }
 
         maxSumSoFar = Math.max(maxSumSoFar, currentSum);
+
+        int max = Integer.MIN_VALUE;
+        if (allNegative(A)) {
+            for (int x : A) {
+                max = Math.max(max, x);
+            }
+            return max;
+        }
+
         return maxSumSoFar;
+    }
+
+    private static boolean allNegative(int[] A) {
+
+        for (int x : A) {
+            if (x >= 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }
