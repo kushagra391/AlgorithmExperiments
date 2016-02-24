@@ -41,7 +41,7 @@ public class MaximumSubArraySumDemo {
         }
 
         // pick max
-        int max = 0;
+        int max = Integer.MIN_VALUE;
         for (int i = 0; i < n; i++) {
             max = Math.max(max, msis[i]);
         }
@@ -52,7 +52,7 @@ public class MaximumSubArraySumDemo {
     // linear time implementation of Kadane's
     private static int kadanes(int[] A, int n) {
         int currentSum = 0;
-        int maxSumSoFar = 0;
+        int maxSumSoFar = Integer.MIN_VALUE;
 
         for (int i = 0; i < n; i++) {
             currentSum += A[i];
@@ -64,6 +64,7 @@ public class MaximumSubArraySumDemo {
             }
         }
 
+        maxSumSoFar = Math.max(maxSumSoFar, currentSum);
         return maxSumSoFar;
     }
 }
