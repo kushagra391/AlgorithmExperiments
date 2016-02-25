@@ -1,7 +1,7 @@
 package hackerrank;/* Authored by Kushagra on 2/24/2016. */
 
 /*
- * Refer: 
+ * Refer:
  * http://www.geeksforgeeks.org/longest-monotonically-increasing-subsequence-size-n-log-n/
  */
 
